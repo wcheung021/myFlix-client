@@ -1,36 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([
-    { id: 1, 
-      Title: "Saving Private Ryan", 
-      ImageUrl: "https://m.media-amazon.com/images/I/41Sl8QTPqGL._SX300_SY300_QL70_FMwebp_.jpg",
-      Author: "Steven Spielberg",
-      Genre: ["Action, ","Drama"]
-    },{ 
-      id: 2, 
-      Title: "Gladiator",
-      ImageUrl: "https://m.media-amazon.com/images/I/51fQWOTDz9L._SX300_SY300_QL70_FMwebp_.jpg",
-      Author: "Ridley Scott",
-      Genre: "Drama"
-    },{ 
-      id: 3, 
-      Title: "Top Gun",
-      ImageUrl: "https://m.media-amazon.com/images/I/41pGXsy5m3L._SX342_.jpg",
-      Author: "Tony Scott",
-      Genre: "Action"
-    }
-  ]);
+  const [movies, setMovies] = useState([]);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-  if (selectedMovie) {
-    return (
-      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-    );
-  }
+  useEffect(() => {
+    fetch("https://movies-app-e6416bf1d095.herokuapp.com/movies");
+  }, []);
+  
 
   if (movies.length === 0) {
     return <div>Movies list is empty</div>
